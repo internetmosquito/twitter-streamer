@@ -1,0 +1,35 @@
+{% extends "template.html" %}
+{% block content %}
+
+
+<div class="entries">
+    <h3>Tweets timeline:</h3>
+    <div class="datagrid">
+        <table class="table">
+            <thead>
+                <tr>
+                    <th>Creation time</th>
+                    <th>Author</th>
+                    <th>Message</th>
+                    <th>Retweet count</th>
+                    <th>Media</th>
+                </tr>
+            </thead>
+            {% for c in messages %}
+                <tr>
+                    <td>{{ c.creation_time }}</td>
+                    <td>{{ c.author }}</td>
+                    <td>{{ c.text }}</td>
+                    <td>{{ c.retweet_count }}</td>
+                    {% if c.media|length > 0 %}
+                        <td><a href="{{ c.media }}">Link</a></td>
+                    {% else %}
+                        <td><a href=""></a></td>
+                    {% endif %}
+
+                </tr>
+            {% endfor %}
+        </table>
+    </div>
+</div>
+{% endblock %}
