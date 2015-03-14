@@ -146,7 +146,7 @@ def get_messages():
                         tweet['user']['name'],
                         tweet['user']['lists'],
                         tweet['text'],
-                        tweet['retweet_count'],
+                        tweet['retweeted_status']['retweet_count'],
                         media_url)
         tweets.append(tweet)
     return flask.render_template('tweets.html', messages=tweets)
