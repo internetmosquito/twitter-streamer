@@ -1,7 +1,13 @@
 {% extends "template.html" %}
 {% block content %}
 
-
+<script type="text/javascript">
+  var timeout = setTimeout("location.reload(true);",30000);
+  function resetTimeout() {
+    clearTimeout(timeout);
+    timeout = setTimeout("location.reload(true);",30000);
+  }
+</script>
 <div class="entries">
     <h3>Tweets timeline:</h3>
     <div class="datagrid">
@@ -10,6 +16,7 @@
                 <tr>
                     <th>Creation time</th>
                     <th>Author</th>
+                    <th>Lists</th>
                     <th>Message</th>
                     <th>Retweet count</th>
                     <th>Media</th>
@@ -19,6 +26,7 @@
                 <tr>
                     <td>{{ c.creation_time }}</td>
                     <td>{{ c.author }}</td>
+                    <td>{{ c.lists }}</td>
                     <td>{{ c.text }}</td>
                     <td>{{ c.retweet_count }}</td>
                     {% if c.media|length > 0 %}
