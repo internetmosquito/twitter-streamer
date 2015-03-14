@@ -138,19 +138,22 @@ def get_messages():
                                     .sort('datetime', pymongo.ASCENDING)
     for tweet in tweets_stored:
         media_url = ''
+        retweet_count = 0
         if 'extended_entities' in tweet:
                     if len(tweet['extended_entities']['media']) > 0:
                         if 'media_url' in tweet['extended_entities']['media'][0]:
                             media_url = tweet['extended_entities']['media'][0]['media_url']
+        if 'retweeted_status' in tweet:
+            if 'retweet_count' in tweet['retweeted_status']:
+                retweet_count = tweet['retweeted_status']['retweet_count']
         tweet = Message(tweet['datetime'],
                         tweet['user']['name'],
                         tweet['user']['lists'],
                         tweet['text'],
-                        tweet['retweeted_status']['retweet_count'],
+                        retweet_count,
                         media_url)
         tweets.append(tweet)
     return flask.render_template('tweets.html', messages=tweets)
-
 
 def shutdown_server():
     #This only works if the Werkzeug server is the one running the Flask app
